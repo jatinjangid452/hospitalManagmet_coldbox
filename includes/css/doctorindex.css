@@ -1,0 +1,35 @@
+
+      .container {
+    margin-top: 20px;
+}
+
+.card {
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.table-bordered {
+    border: 1px solid rgb(222, 226, 230);
+}
+
+.table-bordered th, .table-bordered td {
+    border: 1px solid rgb(222, 226, 230);
+
+    padding: 8px;
+}
+
+.btn-primary {
+    background-color: hsl(211, 100%, 50%);
+    border-color: hsl(211, 100%, 50%);
+    color: hsl(0, 0%, 100%);
+}
+
+.btn-primary:hover {
+    background-color: hsl(211, 100%, 35%);
+    border-color: hsl(211, 100%, 35%);
+}
