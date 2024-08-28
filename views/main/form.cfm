@@ -88,7 +88,7 @@
             <cfset SESSION.password = form.newPassword>
             <script>
                 alert("Password Updated Successfully!");
-                window.location.href = "PatientDashboard.cfm";
+                window.location.href = "main.PatientDashboard.cfm";
             </script>
         <cfelse>
             <script>

@@ -26,6 +26,7 @@ h1 {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+ 
 }
 
 .doctor-table th, .doctor-table td {
@@ -129,6 +130,14 @@ h1 {
                     <div class="col-lg-8 col-xl-6">
                         <div class="card rounded-3">
                             <div class="card-body p-4 p-md-5">
+                                <div>
+                                <button onclick="clickFunction()"><img src="/includes/images/back-button.png"style="width: 30px;"></button>
+                                <script>
+                                    function clickFunction() {
+                                        window.location.href = "main.src.index.cfm";
+                                    }
+                                </script>
+                                </div>
                                 <div style="color:white">
                                     <center><h1><u>Doctor Management</u></h1></center>
                                 </div>
@@ -233,7 +242,11 @@ h1 {
                                         </cfquery>
                                     </cfif>
                                     <!-- Redirect after form submission -->
-                                    <a href="#event.buildLink('Main/save')#"></a>
+                                     <script>
+                                        alert("data Updated Successfully!");
+                                        window.location.href = "main.src.pages.ui-features.doctor_management.cfm";
+                                    </script> 
+                                 
                                 </cfif>
                                 
                                 <!-- Backend Logic for Deleting Doctor -->
@@ -243,7 +256,10 @@ h1 {
                                         WHERE doctor_id = <cfqueryparam value="#url.delete_id#" cfsqltype="cf_sql_integer">
                                     </cfquery>
                                     <!-- Redirect after deletion -->
-                                    <a href="#event.buildLink('Main/save')#"></a>
+                                    <script>
+                                        alert("data delete Successfully!");
+                                        window.location.href = "main.src.pages.ui-features.doctor_management.cfm";
+                                    </script>   
                                 </cfif>
                             </div>
                         </div>

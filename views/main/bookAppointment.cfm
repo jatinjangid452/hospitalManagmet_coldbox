@@ -23,7 +23,7 @@
                 </cfquery>
                
                 <cfset message = "Appointment booked successfully!">
-                <cflocation url="index.cfm">
+                <cflocation url="main.PatientDashboard.cfm">
             </cfif>
     
             <!-- Appointment Booking Form -->

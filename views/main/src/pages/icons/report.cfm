@@ -69,6 +69,13 @@ tr:hover {
 </style>
     </head>
     <body>
+        <button onclick="clickFunction()"><img src="/includes/images/back-button.png"style="width: 30px;"></button>
+
+        <script>
+            function clickFunction() {
+                window.location.href = "main.src.index.cfm";
+            }
+        </script>
         <div class="container">
             <h1>Query</h1>
     

@@ -59,6 +59,13 @@
 </head>
 <body>
     <cfoutput>
+        <button onclick="clickFunction()"><img src="/includes/images/back-button.png"style="width: 30px;"></button>
+
+        <script>
+            function clickFunction() {
+                window.location.href = "main.src.index.cfm";
+            }
+        </script>
 <div class="container">
     <h2>Update Password</h2>
     <form action="" method="post">
@@ -89,7 +96,7 @@
             <cfset SESSION.password = form.newPassword>
             <script>
                 alert("Password Updated Successfully!");
-                window.location.href ="Main/loginadmin";
+                window.location.href ="main.src.index";
             </script>
         <cfelse>
             <script>

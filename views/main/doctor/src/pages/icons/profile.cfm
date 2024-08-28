@@ -17,7 +17,7 @@
             width: 60%;
             margin: 50px auto;
             padding: 20px;
-            background-color: rgb(255, 255, 255);
+            background-color: skyblue;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -50,7 +50,13 @@
     </style>
 </head>
 <body>
+    <button onclick="clickFunction()"><img src="/includes/images/back-button.png"style="width: 30px;"></button>
 
+    <script>
+        function clickFunction() {
+            window.location.href = "main.doctor.src.index.cfm";
+        }
+    </script>
     <div class="profile-container">
         <h2 class="profile-title">Doctor Profile</h2>
 

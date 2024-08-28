@@ -93,6 +93,13 @@
 <body>
     <cfoutput>
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+        <button onclick="clickFunction()"><img src="/includes/images/back-button.png"style="width: 30px;"></button>
+
+        <script>
+            function clickFunction() {
+                window.location.href = "main.src.index.cfm";
+            }
+        </script>
     <div class="container">
         <h1>Patient Details</h1>
 
@@ -121,7 +128,10 @@
                         WHERE p_id = <cfqueryparam value="#form.p_id#" cfsqltype="cf_sql_integer">
                     </cfquery>
                     <!--- <cfset Message = "Patient details updated successfully."> --->
-                    <a href="#event.buildLink('Main/Patinetdetails')#"></a> <!-- Redirect to avoid form display -->
+                    <script>
+                        alert("data Updated Successfully!");
+                        window.location.href = "main.src.pages.forms.patient_details.cfm";
+                    </script> <!-- Redirect to avoid form display -->
                 </cfif>
 
                 <!-- Display Edit Form -->

@@ -43,6 +43,7 @@ component extends="coldbox.system.EventHandler" {
 	}
 	function doctorManagement(event, rc, prc){
 		event.setview("main/src/pages/ui-features/doctor_management");
+		
 	}
 	function Patinetdetails(event, rc, prc){
 		event.setview("main/src/pages/forms/patient_details")
@@ -113,8 +114,10 @@ component extends="coldbox.system.EventHandler" {
 			);
 	
 			// Redirect to the patient page after insertion
-			relocate("main/doctor/src/pages/forms/Patient.cfm");
+			event.setview("main/doctor/src/pages/forms/Patient")
+			
 		}
+		
 	}
 	
 
@@ -132,6 +135,8 @@ component extends="coldbox.system.EventHandler" {
 	}
 	
 	function indexpage(event, rc, prc) {
+		// writedump(rc);
+		// abort;
 		// Check if the form has been submitted
 		if (structKeyExists(rc, "submit")) {
 			// Call the function to update the password
@@ -161,41 +166,49 @@ component extends="coldbox.system.EventHandler" {
 // update password for doctor
 // edit button
 public void function editbutton(event, rc, prc) {
-	// Check if the form has been submitted
-	if (structKeyExists(rc, "submit")) {
-		// Update the patient details in the database
-		try {
-			// Execute the update query
-			rc.ds.queryExecute(
-				sql = "UPDATE patinet_details SET 
-					   `Patient Name` = :PatientName,
-					   `Patient Email` = :PatientEmail,
-					   `Patient Mobile Number` = :PatientMobileNumber,
-					   `Patient Address` = :PatientAddress,
-					   `Patient Gender` = :PatientGender,
-					   `Patient Age` = :PatientAge,
-					   `Patient Medical History (if any)` = :PatientMedicalHistory
-					   WHERE id = :id",
-				params = {
-					{name="PatientName", value=rc.PatientName, cfsqltype="cf_sql_varchar"},
-					{name="PatientEmail", value=rc.PatientEmail, cfsqltype="cf_sql_varchar"},
-					{name="PatientMobileNumber", value=rc.PatientMobileNumber, cfsqltype="cf_sql_varchar"},
-					{name="PatientAddress", value=rc.PatientAddress, cfsqltype="cf_sql_varchar"},
-					{name="PatientGender", value=rc.PatientGender, cfsqltype="cf_sql_varchar"},
-					{name="PatientAge", value=rc.PatientAge, cfsqltype="cf_sql_integer"},
-					{name="PatientMedicalHistory", value=rc.PatientMedicalHistory, cfsqltype="cf_sql_varchar"},
-					{name="id", value=rc.id, cfsqltype="cf_sql_integer"}
-				}
-			);
-			
-			// Redirect to the patient list page
-			event.redirect('main/doctor/src/patient.cfm');
-		} catch (any e) {
-			// Handle exceptions
-			writeOutput("Error updating patient details: " & e.message);
-		}
-	}
+    // Check if the form has been submitted
+    if (structKeyExists(rc, "submit")) {
+        // Update the patient data in the database
+        queryExecute(
+            "UPDATE patinet_details 
+             SET `Patient Name` = :PatientName, 
+                 `Patient Email` = :PatientEmail, 
+                 `Patient Mobile Number` = :PatientMobileNumber, 
+                 `Patient Address` = :PatientAddress, 
+                 `Patient Gender` = :PatientGender, 
+                 `Patient Age` = :PatientAge, 
+                 `Patient Medical History (if any)` = :PatientMedicalHistory
+             WHERE id = :id",
+            {
+                PatientName={value=rc.PatientName, cfsqltype="cf_sql_varchar"},
+                PatientEmail={value=rc.PatientEmail, cfsqltype="cf_sql_varchar"},
+                PatientMobileNumber={value=rc.PatientMobileNumber, cfsqltype="cf_sql_varchar"},
+                PatientAddress={value=rc.PatientAddress, cfsqltype="cf_sql_varchar"},
+                PatientGender={value=rc.PatientGender, cfsqltype="cf_sql_varchar"},
+                PatientAge={value=rc.PatientAge, cfsqltype="cf_sql_integer"},
+                PatientMedicalHistory={value=rc.PatientMedicalHistory, cfsqltype="cf_sql_varchar"},
+                id={value=rc.id, cfsqltype="cf_sql_integer"}
+            }
+        );
+
+        // Redirect to a confirmation or list page after update
+        event.setView("main/doctor/src/pages/forms/patient");
+
+    } else if (structKeyExists(rc, "id")) {
+        // Fetch the patient data for editing
+        rc.getPatient = queryExecute(
+            "SELECT * FROM patinet_details WHERE id = :id",
+            {id={value=rc.id, cfsqltype="cf_sql_integer"}}
+        );
+
+        // Set action to edit
+        rc.action = "edit";
+    }
+
+    // Render the view
+    event.setview("main/doctor/src/pages/forms/patient");
 }
+
 
 	
 // login all 
@@ -232,9 +245,11 @@ else {
 		if (checkDoctor.recordcount EQ 1) {
 			// Set session variables based on the result
 			SESSION.DoctorID = checkDoctor.id1;  // Use the actual column name 'id1'
+			SESSION.dn = checkDoctor.doctor_name;
 			SESSION.email = checkDoctor.email;
 			SESSION.password = checkDoctor.password;
-	
+			// writedump(SESSION);
+			// abort;
 			// Redirect to the doctor dashboard
 			event.setView("main/doctor/src/index");
 		} else {

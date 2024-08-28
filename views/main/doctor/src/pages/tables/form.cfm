@@ -15,7 +15,7 @@
             margin: 0;
         }
         .container {
-            background-color: rgb(255, 255, 255);
+            background-color: skyblue;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -59,16 +59,26 @@
 </head>
 <body>
     <cfoutput>
+        <button onclick="clickFunction()"><img src="/includes/images/back-button.png"style="width: 30px;"></button>
+
+        <script>
+            function clickFunction() {
+                window.location.href = "main.doctor.src.index.cfm";
+            }
+        </script>
+        <br>
+        <br>
+     
 <div class="container">
     <h2>Update Password</h2>
     <form action="#event.buildLink('Main/indexpage')#" method="post">
         <div class="form-group">
             <label for="currentPassword">Current Password</label>
-            <input type="password" id="currentPassword" name="currentPassword" required>
+            <input type="password" id="currentPassword" name="currentPassword"placeholder="Enter current password" required>
         </div>
         <div class="form-group">
             <label for="newPassword">New Password</label>
-            <input type="password" id="newPassword" name="newPassword" required>
+            <input type="password" id="newPassword" name="newPassword" placeholder="Enter new password" required>
         </div>
         <div class="form-group">
             <input type="submit" name="submit" value="Update Password">

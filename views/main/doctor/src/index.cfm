@@ -118,7 +118,7 @@
   <cfquery name="getAppointments">
     SELECT p_id, doctor_name, appointment_date, reason
     FROM appointments
-    Where  p_id=#SESSION.DoctorID#
+    Where  doctor_name="#SESSION.dn#"
 </cfquery>
   <cfset a=getAppointments.recordCount>
     <cfquery name="getPatients">

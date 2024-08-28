@@ -20,12 +20,15 @@
     <title>Patient Details</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
+    
+
         .action-links a {
             margin-right: 5px;
             color: white;
             padding: 5px 10px;
             border-radius: 5px;
             text-decoration: none;
+            
         }
         .edit {
             background-color: #007bff; /* Blue */
@@ -37,7 +40,6 @@
             margin-top: 10px;
         }
         #myInput {
-            background-image: url('/css/searchicon.png'); /* Add a search icon to input */
             background-position: 10px 12px; /* Position the search icon */
             background-repeat: no-repeat; /* Do not repeat the icon image */
             width: 100%; /* Full-width */
@@ -51,8 +53,15 @@
 <body>
 <cfoutput>
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+    <button onclick="clickFunction()"><img src="/includes/images/back-button.png"style="width: 30px;"></button>
+
+        <script>
+            function clickFunction() {
+                window.location.href = "main.doctor.src.index.cfm";
+            }
+        </script>
     <div class="container">
-        <h1 class="mt-4">Patient Details</h1>
+        <center><h1 class="mt-4">Patient Details</h1></center>
 
         <!-- Display Patient Data in Table -->
         <table class="table table-bordered mt-3">
@@ -81,70 +90,47 @@
                         <td>#getPatients['Patient Medical History (if any)']#</td>
                         <td>#getPatients['Patient Reg Date']#</td>
                         <td class="action-links">
-                            <a href="" class="button edit">Edit</a>
+                            <a href="#event.buildLink('Main/editbutton', {id=getPatients.id})#" class="button edit">Edit</a>
                         </td>
                     </tr>
                 </cfoutput>
             </tbody>
         </table>
 
-
-
         <!-- Edit Form (Appears if 'action=edit' in URL) -->
-        <cfif IsDefined("url.action") AND url.action == "edit">
-            <cfquery name="getPatient">
-                SELECT * FROM patinet_details
-                WHERE id = <cfqueryparam value="#url.id#" cfsqltype="cf_sql_integer">
-            </cfquery>
-
-            <cfif getPatient.RecordCount>
+        <cfif IsDefined("rc.action") AND rc.action == "edit">
+            <cfif rc.getPatient.RecordCount>
                 <h3 class="mt-5">Edit Patient Details</h3>
                 <form method="post" action="#event.buildLink('Main/editbutton')#" class="edit-form">
-                    <input type="hidden" name="id" value="#getPatient.id#">
-
+                    <input type="hidden" name="id" value="#rc.getPatient.id#">
+        
                     <label for="PatientName">Patient Name:</label>
-                    <input type="text" id="PatientName" name="PatientName" class="form-control" value="#getPatient['Patient Name']#" required>
-
+                    <input type="text" id="PatientName" name="PatientName" class="form-control" value="#rc.getPatient['Patient Name']#" required>
+        
                     <label for="PatientEmail">Patient Email:</label>
-                    <input type="email" id="PatientEmail" name="PatientEmail" class="form-control" value="#getPatient['Patient Email']#" required>
-
+                    <input type="email" id="PatientEmail" name="PatientEmail" class="form-control" value="#rc.getPatient['Patient Email']#" required>
+        
                     <label for="PatientMobileNumber">Patient Mobile Number:</label>
-                    <input type="text" id="PatientMobileNumber" name="PatientMobileNumber" class="form-control" value="#getPatient['Patient Mobile Number']#" required>
-
+                    <input type="text" id="PatientMobileNumber" name="PatientMobileNumber" class="form-control" value="#rc.getPatient['Patient Mobile Number']#" required>
+        
                     <label for="PatientAddress">Patient Address:</label>
-                    <input type="text" id="PatientAddress" name="PatientAddress" class="form-control" value="#getPatient['Patient Address']#" required>
-
+                    <input type="text" id="PatientAddress" name="PatientAddress" class="form-control" value="#rc.getPatient['Patient Address']#" required>
+        
                     <label for="PatientGender">Patient Gender:</label>
                     <select id="PatientGender" name="PatientGender" class="form-control" required>
-                        <option value="Male" <cfif getPatient['Patient Gender'] == "Male">selected</cfif>>Male</option>
-                        <option value="Female" <cfif getPatient['Patient Gender'] == "Female">selected</cfif>>Female</option>
+                        <option value="Male" <cfif rc.getPatient['Patient Gender'] == "Male">selected</cfif>>Male</option>
+                        <option value="Female" <cfif rc.getPatient['Patient Gender'] == "Female">selected</cfif>>Female</option>
                     </select>
-
+        
                     <label for="PatientAge">Patient Age:</label>
-                    <input type="number" id="PatientAge" name="PatientAge" class="form-control" value="#getPatient['Patient Age']#" required>
-
+                    <input type="number" id="PatientAge" name="PatientAge" class="form-control" value="#rc.getPatient['Patient Age']#" required>
+        
                     <label for="PatientMedicalHistory">Patient Medical History (if any):</label>
-                    <input type="text" id="PatientMedicalHistory" name="PatientMedicalHistory" class="form-control" value="#getPatient['Patient Medical History (if any)']#">
-
+                    <input type="text" id="PatientMedicalHistory" name="PatientMedicalHistory" class="form-control" value="#rc.getPatient['Patient Medical History (if any)']#">
+        
                     <button type="submit" name="submit" class="btn btn-primary mt-3">Save Changes</button>
                 </form>
             </cfif>
-        </cfif>
-
-        <!-- Handle Form Submission -->
-        <cfif IsDefined("form.submit")>
-            <cfquery>
-                UPDATE patinet_details
-                SET `Patient Name` = <cfqueryparam value="#form.PatientName#" cfsqltype="cf_sql_varchar">,
-                    `Patient Email` = <cfqueryparam value="#form.PatientEmail#" cfsqltype="cf_sql_varchar">,
-                    `Patient Mobile Number` = <cfqueryparam value="#form.PatientMobileNumber#" cfsqltype="cf_sql_varchar">,
-                    `Patient Address` = <cfqueryparam value="#form.PatientAddress#" cfsqltype="cf_sql_varchar">,
-                    `Patient Gender` = <cfqueryparam value="#form.PatientGender#" cfsqltype="cf_sql_varchar">,
-                    `Patient Age` = <cfqueryparam value="#form.PatientAge#" cfsqltype="cf_sql_integer">,
-                    `Patient Medical History (if any)` = <cfqueryparam value="#form.PatientMedicalHistory#" cfsqltype="cf_sql_varchar">
-                WHERE id = <cfqueryparam value="#form.id#" cfsqltype="cf_sql_integer">
-            </cfquery>
-            <cflocation url="patient.cfm">
         </cfif>
     </div>
 </cfoutput>

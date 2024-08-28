@@ -91,7 +91,7 @@ component singleton {
         password = trim(arguments.password);
     
         var checkDoctor = queryExecute("
-            SELECT id1, email, password
+            SELECT *
             FROM doctor_login
             WHERE email = :email
             AND password = :password

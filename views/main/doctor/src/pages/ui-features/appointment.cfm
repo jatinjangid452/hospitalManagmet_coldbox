@@ -23,12 +23,12 @@ table {
     border-collapse: collapse;
     margin: 30px 0; /* Space around the table */
     padding: 0; /* No padding directly on the table */
-    background-color: var(--container-background);
+    /* background-color: var(--container-background); */
 }
 
 /* Table Borders */
 table, th, td {
-    border: 2px solid var(--border-color); /* Thicker border for visibility */
+    border: 2px solid rgb(17, 147, 199); /* Thicker border for visibility */
 }
 
 th, td {
@@ -37,7 +37,7 @@ th, td {
 }
 
 th {
-    background-color: var(--background-color);
+    /* background-color: var(--background-color); */
     color: var(--text-color);
     font-weight: bold;
 }
@@ -70,16 +70,31 @@ tr:hover {
         </style>
     </head>
     <body>
+        <button onclick="clickFunction()"><img src="/includes/images/back-button.png"style="width: 30px;"></button>
+
+        <script>
+            function clickFunction() {
+                window.location.href = "main.doctor.src.index.cfm";
+            }
+        </script>
         <div class="container">
-            <h1>Appointment Details</h1>
-    
+            <center><h1>Appointment history</h1></center>
+            <!--- <cfdump var="#SESSION#">
+            <cfabort>  --->
+            <!--- <cfset session.name="name"> --->
             <!-- Fetch appointment data -->
             <cfquery name="getAppointments">
                 SELECT p_id, doctor_name, appointment_date, reason
                 FROM appointments
-                Where  p_id=#SESSION.DoctorID#
+                Where  doctor_name="#SESSION.dn#"
             </cfquery>
-    
+
+<br>
+<br>
+
+
+
+     
             <!-- Display appointments in a table -->
             <table>
                 <thead>

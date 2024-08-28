@@ -20,6 +20,7 @@
 /* Table Styling */
 table {
     width: 100%;
+    /* border:1px solid black; */
     border-collapse: collapse;
     margin: 30px 0; /* Space around the table */
     padding: 0; /* No padding directly on the table */
@@ -28,7 +29,7 @@ table {
 
 /* Table Borders */
 table, th, td {
-    border: 2px solid var(--border-color); /* Thicker border for visibility */
+    border:1px solid rgb(37, 140, 180); /* Thicker border for visibility */
 }
 
 th, td {
@@ -70,6 +71,13 @@ tr:hover {
         </style>
     </head>
     <body>
+        <button onclick="clickFunction()"><img src="/includes/images/back-button.png"style="width: 30px;"></button>
+
+        <script>
+            function clickFunction() {
+                window.location.href = "main.src.index.cfm";
+            }
+        </script>
         <div class="container">
             <h1>Appointment Details</h1>
     
@@ -78,6 +86,8 @@ tr:hover {
                 SELECT p_id, doctor_name, appointment_date, reason
                 FROM appointments
             </cfquery>
+            <!--- <cfdump var="#getAppointments#">
+            <cfabort> --->
     
             <!-- Display appointments in a table -->
             <table>
