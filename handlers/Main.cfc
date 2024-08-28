@@ -134,6 +134,36 @@ component extends="coldbox.system.EventHandler" {
 		event.setview("main/doctor/src/pages/tables/form")
 	}
 	
+
+
+	function uploadImage(event, rc, prc) {
+        var file = event.getValue("image");
+
+        if (!isNull(file)) {
+            var fileName = file.getName();
+            var fileExtension = listLast(fileName, ".");
+            var newFileName = createUUID() & "." & fileExtension; // Create a unique filename
+            var uploadPath = expandPath("/images/uploads/"); // Path to save images
+
+            // Save the file
+            file.fileSaveAs(uploadPath & newFileName);
+
+            // Store the file name in the session or redirect with the file name
+            rc.uploadedImageName = newFileName; // Store the new file name for display
+
+            // Redirect or render the view
+            event.redirect("/yourPage"); // Redirect to a page to show the uploaded image
+        } else {
+            rc.errorMessage = "No file uploaded.";
+            event.redirect("/yourPage"); // Redirect to a page with an error message
+        }
+    }
+
+
+
+
+
+
 	function indexpage(event, rc, prc) {
 		// writedump(rc);
 		// abort;

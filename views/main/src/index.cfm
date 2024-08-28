@@ -20,8 +20,11 @@
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="/includes/admin/assets/css/style.css">
+ <style>
  
 
+    
+</style>
  </head>
  <body>
   <cfoutput>
@@ -69,18 +72,17 @@
       </li>
       <li class="nav-item nav-profile dropdown">
         <a class="nav-link dropdown-toggle" href="##" data-bs-toggle="dropdown" id="profileDropdown"> Jatin
-          <img src="/includes/images/user.png" alt="profile" />
+        <button><img src="/includes/images/user.png" alt="profile" /></button>
         </a>
-        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-          <a class="dropdown-item" href="../index.cfm">
-            <i class="ti-power-off text-primary"></i> Logout </a>
-        </div>
+        <a class="dropdown-item" href="../index.cfm">
+        Logout </a>
       </li>
     </ul>
     <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
       <span class="icon-menu"></span>
     </button>
   </div>
+  
      <!--- doctor count --->
   <cfquery name="Get_Doctors">
     SELECT doctor_id, name, specialization, post
@@ -107,7 +109,7 @@ SELECT * FROM patient_queries
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_sidebar.html -->
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+ <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
     <li class="nav-item">
       <a class="nav-link">
@@ -153,8 +155,6 @@ SELECT * FROM patient_queries
         </ul>
       </div>
     </li>
-
-  
     <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="##icons" aria-expanded="false" aria-controls="icons">
         <i class="icon-contract menu-icon"></i>
@@ -180,7 +180,9 @@ SELECT * FROM patient_queries
       </div>
     </li>
 
+  </ul>
 </nav>
+
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
@@ -189,55 +191,62 @@ SELECT * FROM patient_queries
                 <div class="row">
                   <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                     <h3 class="font-weight-bold">Welcome Jatin</h3>
-                  
                   </div>
                   <div class="col-12 col-xl-4">
                     <div class="justify-content-end d-flex">
                       <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 grid-margin transparent">
-                <div class="row">
-                  <div class="col-md-6 mb-4 stretch-card transparent">
-                    <div class="card card-tale">
-                      <div class="card-body">
-                        <p class="mb-4">Doctor </p>
-                        <p>#count#</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-4 stretch-card transparent">
-                    <div class="card card-dark-blue">
-                      <div class="card-body">
-                        <p class="mb-4">Patients </p>
-                        <p>#j#</p>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
-                    <div class="card card-light-blue">
-                      <div class="card-body">
-                        <p class="mb-4">Appointments</p>
-                        <p>#a#</p>
+                  <div class="col-md-6 grid-margin transparent">
+                    <div class="row">
+                      <div class="col-md-6 mb-4 stretch-card transparent">
+                        <div class="card card-tale">
+                          <div class="card-body">
+                            <p class="mb-4">Doctor</p>
+                            <p>#count#</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-4 stretch-card transparent">
+                        <div class="card card-dark-blue">
+                          <div class="card-body">
+                            <p class="mb-4">Patients</p>
+                            <p>#j#</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
+                        <div class="card card-light-blue">
+                          <div class="card-body">
+                            <p class="mb-4">Appointments</p>
+                            <p>#a#</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 stretch-card transparent">
+                        <div class="card card-light-danger">
+                          <div class="card-body">
+                            <p class="mb-4">Query</p>
+                            <p>#c#</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6 stretch-card transparent">
-                    <div class="card card-light-danger">
-                      <div class="card-body">
-                        <p class="mb-4">Query </p>
-                        <p>#c#</p>
-                      </div>
-                    </div>
-                  </div>
+        
+                  <!-- Image Column -->
+                  
                 </div>
-                
               </div>
             </div>
+          </div>
+        </div>
+        
       </cfoutput>
     <!-- container-scroller -->
     <!-- plugins:js -->

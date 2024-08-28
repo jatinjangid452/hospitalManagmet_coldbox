@@ -23,7 +23,9 @@
     <!-- endinject -->
     <link rel="shortcut icon" href="/includes/assets/images/favicon.png" />
     <link rel="stylesheet" href="/includes/css/logindoctor.css">
-
+    <style>
+  
+</style>
   </head>
   <body>
     <cfoutput>
