@@ -14,7 +14,7 @@
 
 <body class="bg-success">
     <cfoutput>
-    <img src="#prc.profile_img#" alt="HH" style="max-width: 25px; max-height: 25px;">  
+
     
         <!-- Logout Button -->
         <div style="text-align: right; margin-top: 20px;">
@@ -32,6 +32,9 @@
         <!-- Logout Link with Inline CSS -->
     <!-- Profile 1 - Bootstrap Brain Component -->
     <section class="bg-light py-3 py-md-5 py-xl-8">
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <img src="#prc.profile_img#" alt="HH" style="width: 50px; height: 50px;">
+        </div>
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
