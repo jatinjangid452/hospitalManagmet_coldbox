@@ -129,8 +129,6 @@ component singleton {
         // Trim the email and password inputs
         email = trim(arguments.email);
         password = trim(arguments.password);
-
-        // Query to check if the email and password exist in the database
         var checkPatient = queryExecute("
             SELECT *
             FROM register_patient
@@ -141,21 +139,24 @@ component singleton {
                 password = {value=password, cfsqltype="cf_sql_varchar", maxlength=100}
             }
         );
-        public any function addPatient(fname, address, city, gender, email, password) {
+        return checkPatient;
+    }
+        public any function addregister(fname, address, city, gender, email, password,profile_img) {
             try {
-            var insertPatient = queryExecute("INSERT INTO register_patient (fname, address, city, gender, email, password)
-                VALUES (:fname, :address, :city, :gender, :email, :password)", 
+            var register = queryExecute("INSERT INTO register_patient (fname, address, city, gender, email, password,profile_img)
+                VALUES (:fname, :address, :city, :gender, :email, :password,:profile_img)", 
                 {
                     fname = {value=fname, cfsqltype="cf_sql_varchar", maxlength=100},
                     address = {value=address, cfsqltype="cf_sql_varchar", maxlength=100},
                     city = {value=city, cfsqltype="cf_sql_varchar", maxlength=100},
                     gender = {value=gender, cfsqltype="cf_sql_varchar", maxlength=10},
                     email = {value=email, cfsqltype="cf_sql_varchar", maxlength=100},
-                    password = {value=password, cfsqltype="cf_sql_varchar", maxlength=100}
+                    password = {value=password, cfsqltype="cf_sql_varchar", maxlength=100},
+                    profile_img = {value=profile_img, cfsqltype="cf_sql_varchar", maxlength=1024}
                 });
-            
-                return insertPatient.recordCount; // Return true if the insertion was successful
-    
+               
+                return register.recordCount ; // Return true if the insertion was successful
+              
             } catch (any e) {
                 // Log the error and return false
                 writeLog(text="Error inserting patient: #e.message#", type="error");
@@ -163,8 +164,6 @@ component singleton {
             }
         }
         // Return the result of the query
-        return checkPatient;
-    }
-
-
+    
 }
+

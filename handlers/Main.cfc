@@ -136,28 +136,7 @@ component extends="coldbox.system.EventHandler" {
 	
 
 
-	function uploadImage(event, rc, prc) {
-        var file = event.getValue("image");
 
-        if (!isNull(file)) {
-            var fileName = file.getName();
-            var fileExtension = listLast(fileName, ".");
-            var newFileName = createUUID() & "." & fileExtension; // Create a unique filename
-            var uploadPath = expandPath("/images/uploads/"); // Path to save images
-
-            // Save the file
-            file.fileSaveAs(uploadPath & newFileName);
-
-            // Store the file name in the session or redirect with the file name
-            rc.uploadedImageName = newFileName; // Store the new file name for display
-
-            // Redirect or render the view
-            event.redirect("/yourPage"); // Redirect to a page to show the uploaded image
-        } else {
-            rc.errorMessage = "No file uploaded.";
-            event.redirect("/yourPage"); // Redirect to a page with an error message
-        }
-    }
 
 
 
@@ -165,8 +144,7 @@ component extends="coldbox.system.EventHandler" {
 
 
 	function indexpage(event, rc, prc) {
-		// writedump(rc);
-		// abort;
+		
 		// Check if the form has been submitted
 		if (structKeyExists(rc, "submit")) {
 			// Call the function to update the password
@@ -278,9 +256,6 @@ else {
 			SESSION.dn = checkDoctor.doctor_name;
 			SESSION.email = checkDoctor.email;
 			SESSION.password = checkDoctor.password;
-			// writedump(SESSION);
-			// abort;
-			// Redirect to the doctor dashboard
 			event.setView("main/doctor/src/index");
 		} else {
 			// Output the script to display an alert and go back in history
@@ -310,7 +285,8 @@ else {
             SESSION.gender = checkPatient.gender
             SESSION.email = checkPatient.email
             SESSION.password = checkPatient.password
-			location(url="PatientDashboard.cfm", addToken=false);
+			prc.profile_img = checkPatient.profile_img;
+			event.setView("main/PatientDashboard");
 			
 		} else {
 			// Output the script to display an alert and go back in history
@@ -324,30 +300,40 @@ else {
 	}
 	
 	public any function registerPatient(event, rc, prc) {
+
         // Collect and trim the form data
         var fname = trim(rc.fname);
         var address = trim(rc.address);
         var city = trim(rc.city);
         var gender = trim(rc.gender);
         var email = trim(rc.email);
+		
         var password = trim(rc.password);
-
-        var result = jatin.addPatient(fname, address, city, gender, email, password);
-
-        // Check the result and redirect or show a message
-        if (result) {
-        SESSION.email = email;
-           
-            event.setView("login_patient.cfm");
-        } else {
-            // Show an error message if registration failed
-            writeOutput("
-                <script>
-                    alert('Registration failed. Please try again.');
-                    history.back();
-                </script>
-            ");
-        }
+		// Initialize the image path variable
+		var profileImgPath = "";
+		
+		// Check if an image was uploaded
+		if (structKeyExists(form, "image") AND len(trim(form.image))) {
+			
+			cffile(
+				action = "upload",
+				filefield = "image",
+				destination = expandPath('/includes/assets/images/newimg/profile/'),
+				nameconflict = "MakeUnique",
+				result = "profileResult"
+				);
+				
+				// Capture the uploaded file's path
+				profileImgPath = '/includes/assets/images/newimg/profile/' & profileResult.serverFile;
+				
+				
+			} else {
+				writeOutput("No file uploaded.");
+			}
+			var result = jatin.addregister(fname, address, city, gender, email, password,profileImgPath);
+			
+            event.setView("main/login_patient");
+        
     }
 	
 	

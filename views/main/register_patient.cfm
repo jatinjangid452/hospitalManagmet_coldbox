@@ -11,7 +11,7 @@
     <body>
         <div class="form-container">
             <h2 class="form-title">HMS | Patient Registration</h2>
-            <form action="#event.buildLink('Main/registerPatient')#" method="post">
+            <form action="#event.buildLink('Main/registerPatient')#" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="fname">Full Name</label>
                     <input type="text" id="fname" name="fname" required>
@@ -41,11 +41,16 @@
                     <input type="password" id="password" name="password" required>
                 </div>
                 <div class="form-group">
+                    <label for="image">Upload Image</label>
+                    <input type="file" class="form-control" name="image"   required>
+                  </div>
+                <div class="form-group">
                     <button type="submit" class="submit-btn">Submit</button>
                 </div>
                 <div class="form-footer">
                     <a href="Main/loginHandler_patient">Already have an account? Login</a>
                 </div>
+                  
             </form>
         </div>
     </body>

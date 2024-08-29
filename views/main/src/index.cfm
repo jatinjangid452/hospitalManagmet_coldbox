@@ -71,12 +71,18 @@
         </div>
       </li>
       <li class="nav-item nav-profile dropdown">
-        <a class="nav-link dropdown-toggle" href="##" data-bs-toggle="dropdown" id="profileDropdown"> Jatin
-        <button><img src="/includes/images/user.png" alt="profile" /></button>
+        Jatin
+        <a class="nav-link dropdown-toggle" href="##" data-bs-toggle="dropdown" id="profileDropdown">
+          <img src="/includes/images/doctor.png" alt="profile" />
         </a>
-        <a class="dropdown-item" href="../index.cfm">
-        Logout </a>
+        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+       
+          <a class="dropdown-item" href="../index.cfm">
+            
+            <i class="ti-power-off text-primary"></i> Logout </a>
+        </div>
       </li>
+    
     </ul>
     <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
       <span class="icon-menu"></span>

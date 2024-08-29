@@ -13,7 +13,8 @@
 </head>
 
 <body class="bg-success">
-<cfoutput>
+    <cfoutput>
+    <img src="#prc.profile_img#" alt="HH" style="max-width: 25px; max-height: 25px;">  
     
         <!-- Logout Button -->
         <div style="text-align: right; margin-top: 20px;">
@@ -26,7 +27,8 @@
     <a href="Main/form" style="display: inline-block; padding: 10px 20px; background-color: blue; color: rgb(255, 255, 255); text-decoration: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Update password</a>
    
 </div>
-    
+
+
         <!-- Logout Link with Inline CSS -->
     <!-- Profile 1 - Bootstrap Brain Component -->
     <section class="bg-light py-3 py-md-5 py-xl-8">
