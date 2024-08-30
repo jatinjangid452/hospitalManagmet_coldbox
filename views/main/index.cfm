@@ -9,6 +9,7 @@
 	</head>
 	
 	<body>
+	
 		<header class="p-3">
 			<nav class="navbar navbar-expand-lg">
 				<div class="container-fluid">
@@ -140,7 +141,7 @@
 	
 			<div class="form-group">
 				<label for="message">Message:</label>
-				<textarea id="message" name="message" class="form-control" rows="4" required></textarea>
+				<textarea id="message" name="message" class="form-control" rows="1" required></textarea>
 			</div>
 	
 			<button type="submit" class="btn btn-primary mt-3">Send Message</button>
